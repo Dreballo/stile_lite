@@ -1,0 +1,33 @@
+<div class="container">
+    <div class="col s12">
+        <form id="register"  onSubmit={this.handleSubmit}>
+            <div class="input-field col s12">
+                <label htmlFor="first_name">First Name</label>
+                <input id="first_name" type="text"  onChange={this.handleChange} class="validate"/>
+            </div>
+            <div class="input-field col s12">
+                <label htmlFor="last_name">Last Name</label>
+                <input id="last_name" type="text"  onChange={this.handleChange} class="validate"/>
+            </div>
+            <div class="input-field col s12">
+                <label htmlFor="email">Email</label>
+                <input id="email" type="email"  onChange={this.handleChange} class="validate"/>
+            </div>
+            <div class="input-field col s12">
+                <label htmlFor="password">Password</label>
+                <input id="password" type="password"  onChange={this.handleChange} class="validate"/>
+            </div>
+            <div class="input-field col s12">
+                <label htmlFor="birthdate">Date of Birth</label>
+                <input id="datepicker" type="text" onChange={this.handleChange} class="datepicker"/>
+            </div>
+            <div class="input-field col s12">
+                <label htmlFor="mobile">Mobile</label>
+                <input id="mobile" type="text"  onChange={this.handleChange} class="validate"/>
+            </div>
+            <div class="col s12 center">
+                <button class="btn-large waves-effect waves-light" type="submit" value="POST">Register</button>
+            </div>
+        </form>
+    </div>
+</div>

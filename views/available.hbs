@@ -1,0 +1,23 @@
+{{>nav}}
+
+{{#each stylist}}
+<div class="col s12">
+    <div class="card">
+        <div class="row">
+            <div class="col s6">
+                <img class="circle responsive-img" src="{{this.imageURL}}">
+            </div>
+            <div class="col s6">
+                <ul>
+                    <li>{{this.first_name}}</li>
+                    <li>{{this.last_name}}</li>
+                    <li>{{this.address}}</li>
+                    <li>{{this.phone}}</li>
+                    <li class="chip red lighten-3 white-text">{{this.start_time}}</li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+</div>
+{{/each}}
