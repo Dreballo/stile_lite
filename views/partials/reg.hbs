@@ -1,28 +1,28 @@
 <div class="container">
     <div class="col s12">
-        <form id="register"  onSubmit={this.handleSubmit}>
+        <form id="register"  action="/register/submit" method="post">
             <div class="input-field col s12">
-                <label htmlFor="first_name">First Name</label>
+                <label for="first_name">First Name</label>
                 <input id="first_name" type="text"  onChange={this.handleChange} class="validate"/>
             </div>
             <div class="input-field col s12">
-                <label htmlFor="last_name">Last Name</label>
+                <label for="last_name">Last Name</label>
                 <input id="last_name" type="text"  onChange={this.handleChange} class="validate"/>
             </div>
             <div class="input-field col s12">
-                <label htmlFor="email">Email</label>
+                <label for="email">Email</label>
                 <input id="email" type="email"  onChange={this.handleChange} class="validate"/>
             </div>
             <div class="input-field col s12">
-                <label htmlFor="password">Password</label>
+                <label for="password">Password</label>
                 <input id="password" type="password"  onChange={this.handleChange} class="validate"/>
             </div>
             <div class="input-field col s12">
-                <label htmlFor="birthdate">Date of Birth</label>
+                <label for="birthdate">Date of Birth</label>
                 <input id="datepicker" type="text" onChange={this.handleChange} class="datepicker"/>
             </div>
             <div class="input-field col s12">
-                <label htmlFor="mobile">Mobile</label>
+                <label for="mobile">Mobile</label>
                 <input id="mobile" type="text"  onChange={this.handleChange} class="validate"/>
             </div>
             <div class="col s12 center">
