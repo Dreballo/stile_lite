@@ -175,6 +175,20 @@ function isLoggedIn(req, res, next) {
         res.render('prelogin');
     });
 
+    //route for confirmation page
+    router.get('/appointment/:id', function(req, res){
+        stylist.findOne({
+            where: {
+                id: req.params.id
+            }
+        }).then(function(data){
+            let hbsObject = {
+                stylist: data
+            };
+            console.log(hbsObject);
+            res.render('appointment', hbsObject)
+        });
+    });
 
 
 
