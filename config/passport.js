@@ -83,9 +83,9 @@ module.exports = function() {
                     imageURL: profile.photos[0].value
 
 
-                }}).then(function(user){
+                }}).then(function(dbUser){
 
-                        return done(null, user);
+                        return done(null, dbUser);
 
                 });
 
@@ -114,11 +114,11 @@ module.exports = function() {
     // Sequelize needs to serialize and deserialize the user
     // Just consider this part boilerplate needed to make it all work
     passport.serializeUser(function(user, cb) {
-        cb(null, user);
+        cb(null, JSON.stringify(user));
     });
 
     passport.deserializeUser(function(obj, cb) {
-        cb(null, obj);
+        cb(null, JSON.parse(obj));
     });
 
 

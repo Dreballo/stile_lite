@@ -10,7 +10,7 @@
     width: 100%;
 }
 
-/* Presets for */
+/* Presets for video and alternate background*/
 video {
     position: fixed;
     top: 50%;
@@ -29,4 +29,12 @@ video {
 #confirm{
     font-size: 10em;
     color: #00e676;
+}
+
+#profile_div{
+    background-image: url("../img/barber_chair.png");
+}
+
+.profile_nav{
+    margin-top: 40%;
 }
