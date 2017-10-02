@@ -7,6 +7,8 @@ const stylist = db.Stylist;
 //importing passport
 const passport = require('passport');
 const isAuthenticated = require('../config/middleware/isAuthenticated');
+//variable for logged in user
+let customer={};
 
 // =====================================
 // Passport-local ROUTES ===============
@@ -17,7 +19,11 @@ router.post('/login',
     function(req, res) {
         res.cookie('signIn', 'true');
         res.redirect('/home');
-        console.log(req.user)
+        customer= JSON.stringify(req.user);
+        console.log('customer',customer);
+        console.log('email is: ',customer.email);
+
+
     });
 
 
@@ -33,27 +39,26 @@ router.get('/auth/facebook/callback',
     passport.authenticate('facebook', {failureRedirect : '/'}), function (req, res){
         res.cookie('signIn', 'true');
         res.redirect('/home');
-        console.log(req.user);
+        customer = req.user;
+        console.log(customer);
     });
-
 
 // route for logging out
 router.get('/logout', function(req, res) {
     req.logout();
     res.redirect('/');
+    customer = {};
 
 });
-
-
 
 // route middleware to make sure a user is logged in
 function isLoggedIn(req, res, next) {
 
     // if user is authenticated in the session, carry on
     if (req.isAuthenticated()){
-        console.log("HERE COMES USER ID!!! --------!!_!_!_!_!__!_!");
-        console.log(req.user);
-        console.log("HELLO WORLD -------!_!_!_!_!_!_!---------");
+        // console.log("HERE COMES USER ID!!! --------!!_!_!_!_!__!_!");
+        // console.log(req.user);
+        // console.log("HELLO WORLD -------!_!_!_!_!_!_!---------");
         return next();
     } else{
         // if they aren't redirect them to the home page
@@ -80,15 +85,17 @@ function isLoggedIn(req, res, next) {
     });
 
     //route for account profile page
-    router.get('/profile', function(req, res){
+    router.get('/profile', isLoggedIn, function(req, res){
+
         db.User.findAll({
             where:{
                 email:req.user.email
             }
         }).then(function(data){
             let hbsObject = {
-                user: data
+                profile: data
             };
+
 
             res.render('profile', hbsObject);
         });
@@ -97,7 +104,7 @@ function isLoggedIn(req, res, next) {
 
     //creating user profile
     router.post("/register/create", function (req, res) {
-        console.log(req.body);
+
         db.User.create({
 
             first_name: req.body.first_name,
@@ -121,6 +128,7 @@ function isLoggedIn(req, res, next) {
                stylist: data
            };
             res.render('available', hbsObject);
+            console.log(hbsObject);
         });
 
     });

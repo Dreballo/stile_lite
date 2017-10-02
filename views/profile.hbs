@@ -1,13 +1,15 @@
 {{> nav}}
 
+{{#each profile}}
 <div class="container">
-    <div class="col s12 card">
+    <div class="col s12 card center">
 
-        <img class="responsive-img circle" src="{{user.imageURL}}" alt="">
-        <h4 class="black-text center-align">{{user.first_name}} {{user.last_name}}</h4>
+        <img class="responsive-img circle" src="{{this.imageURL}}" alt="profile image">
+        <h4 class="black-text center-align"><strong>{{this.first_name}} {{this.last_name}}</strong></h4>
         <br>
-        <h5 class="black-text center-align">Email: {{user.email}}</h5>
+        <h5 class="black-text center-align">Email: {{this.email}}</h5>
         <br>
-        <h5 class="black-text center-align">Phone: {{user.phone}}</h5>
+        <h5 class="black-text center-align">Phone: {{this.phone}}</h5>
     </div>
 </div>
+{{/each}}
