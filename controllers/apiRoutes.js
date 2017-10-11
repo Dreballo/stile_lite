@@ -80,10 +80,8 @@ function isLoggedIn(req, res, next) {
             }
         }).then(function(data){
             let hbsObject = {
-                user: data,
-
+                user: data
             };
-
 
             res.render('index', {title: "Stile", layout: 'main', hbsObject});
         });
