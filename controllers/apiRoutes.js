@@ -7,8 +7,8 @@ const stylist = db.Stylist;
 //importing passport
 const passport = require('passport');
 const isAuthenticated = require('../config/middleware/isAuthenticated');
-//variable for logged in user
-let customer={};
+
+
 
 // =====================================
 // Passport-local ROUTES ===============
@@ -19,9 +19,6 @@ router.post('/login',
     function(req, res) {
         res.cookie('signIn', 'true');
         res.redirect('/home');
-        customer= JSON.stringify(req.user);
-        console.log('customer',customer);
-        console.log('email is: ',customer.email);
 
 
     });
@@ -39,15 +36,15 @@ router.get('/auth/facebook/callback',
     passport.authenticate('facebook', {failureRedirect : '/'}), function (req, res){
         res.cookie('signIn', 'true');
         res.redirect('/home');
-        customer = req.user;
-        console.log(customer);
+
+
     });
 
 // route for logging out
 router.get('/logout', function(req, res) {
     req.logout();
     res.redirect('/');
-    customer = {};
+
 
 });
 
@@ -56,6 +53,7 @@ function isLoggedIn(req, res, next) {
 
     // if user is authenticated in the session, carry on
     if (req.isAuthenticated()){
+
         // console.log("HERE COMES USER ID!!! --------!!_!_!_!_!__!_!");
         // console.log(req.user);
         // console.log("HELLO WORLD -------!_!_!_!_!_!_!---------");
@@ -76,7 +74,22 @@ function isLoggedIn(req, res, next) {
 
     //route for main router (user selects options)
     router.get('/home', isLoggedIn, function (req,res){
-       res.render('index', {title: "Stile", layout: 'main'})
+        db.User.findAll({
+            where:{
+                email:req.user.email || req.user[0].email//facebook profile object
+            }
+        }).then(function(data){
+            let hbsObject = {
+                user: data,
+
+            };
+
+
+            res.render('index', {title: "Stile", layout: 'main', hbsObject});
+        });
+
+
+
     });
 
     //route for registration page
@@ -89,13 +102,12 @@ function isLoggedIn(req, res, next) {
 
         db.User.findAll({
             where:{
-                email:req.user.email
+                email:req.user.email || req.user[0].email//facebook profile object
             }
         }).then(function(data){
             let hbsObject = {
                 profile: data
             };
-
 
             res.render('profile', hbsObject);
         });
@@ -197,8 +209,6 @@ function isLoggedIn(req, res, next) {
             res.render('appointment', hbsObject)
         });
     });
-
-
 
 
 module.exports = router;
