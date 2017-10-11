@@ -5,6 +5,7 @@
 // ==========================================================
 
 //Declaring Dependencies
+
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const FacebookStrategy = require('passport-facebook').Strategy;
@@ -64,7 +65,7 @@ module.exports = function() {
             clientID        : configAuth.facebookAuth.clientID,
             clientSecret    : configAuth.facebookAuth.clientSecret,
             callbackURL     : configAuth.facebookAuth.callbackURL,
-            profileFields   : ['id', 'displayName', 'photos', 'email', 'first_name', 'gender', 'last_name']
+            profileFields   : ['id', 'displayName', 'picture.type(large)', 'email', 'first_name', 'gender', 'last_name']
 
         },
 
@@ -88,6 +89,8 @@ module.exports = function() {
                         return done(null, dbUser);
 
                 });
+
+
 
             });//end of asynch
 
@@ -114,11 +117,11 @@ module.exports = function() {
     // Sequelize needs to serialize and deserialize the user
     // Just consider this part boilerplate needed to make it all work
     passport.serializeUser(function(user, cb) {
-        cb(null, JSON.stringify(user));
+        cb(null, user);
     });
 
     passport.deserializeUser(function(obj, cb) {
-        cb(null, JSON.parse(obj));
+        cb(null, obj);
     });
 
 
