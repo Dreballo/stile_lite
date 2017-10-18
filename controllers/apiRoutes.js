@@ -74,7 +74,7 @@ function isLoggedIn(req, res, next) {
 
     //route for main router (user selects options)
     router.get('/home', isLoggedIn, function (req,res){
-        db.User.findAll({
+        db.User.findOne({
             where:{
                 email:req.user.email || req.user[0].email//facebook profile object
             }
